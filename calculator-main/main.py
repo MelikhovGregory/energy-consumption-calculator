@@ -1,8 +1,11 @@
 #Импорт
-from flask import Flask, render_template
+from flask import Flask, render_template, request
+from logic import DB_Manager
+from config import DATABASE
 
 
 app = Flask(__name__)
+manager = DB_Manager(DATABASE)
 
 def result_calculate(size, lights, device):
     #Переменные для энергозатратности приборов
@@ -28,7 +31,7 @@ def lights(size):
 @app.route('/<size>/<lights>')
 def electronics(size, lights):
     return render_template(
-                            'electronics.html',
+                            'electronics.html',                           
                             size = size, 
                             lights = lights                           
                            )
@@ -42,4 +45,27 @@ def end(size, lights, device):
                                                     int(device)
                                                     )
                         )
-app.run(debug=True)
+#Форма
+@app.route('/form')
+def form():
+    return render_template('form.html')
+
+#Результаты формы
+@app.route('/submit', methods=['POST'])
+def submit_form():
+    name = request.form['name']
+    email = request.form['email']
+    address = request.form['address']
+    date = request.form['date']
+
+    manager.data_insert(name, email, address, date)
+
+    return render_template('form_result.html', 
+                           name=name,
+                           email=email,
+                           address=address,
+                           date=date
+                           )
+
+if __name__ == '__main__':
+    app.run(debug=True)
