@@ -29,10 +29,14 @@
         <img class="rez__img" src="../../static/img/planet_medium.svg" alt="">
         <span>Ваш результат {{result}} кВт⋅ч</span>
         <span>Ваш дом имеет среднюю энергоэффективности!</span>
+        <span>Хотите помочь экологии? Заполните форму и мы соберем вам экологичную сборку!</span>
+        <a href="/form" class="main__link">Заполнить форму</a>
         {%elif result >= 300%}
         <img class="rez__img" src="../../static/img/planet_bad.svg" alt="">
         <span>Ваш результат {{result}} кВт⋅ч</span>
         <span>Ваш дом имеет плохую энергоэффективности!</span>
+        <span>Хотите помочь экологии? Заполните форму и мы соберем вам экологичную сборку!</span>
+        <a href="/form" class="main__link">Заполнить форму</a>
         {%endif%}
     </div>
     {% endblock %}
